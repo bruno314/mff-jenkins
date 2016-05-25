@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class test {
+public class fibtest {
     @Test
     public void test1() {
         assertEquals(8, fib.fib(6));

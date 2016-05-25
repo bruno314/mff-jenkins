@@ -9,6 +9,18 @@
         <javac srcdir="src" destdir="build/classes"/>
     </target>
 
+    <target name="testCompile">
+        <javac srcdir="test" destdir="build/classes">
+            <classpath>
+                <pathelement location="build/classes/"/>
+                <!--<pathelement path="${java.class.path}"/>-->
+                <fileset dir="lib/" ><include name="*.jar"></include></fileset>
+            </classpath>
+
+        </javac>
+    </target>
+
+
     <target name="jar">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/fib.jar" basedir="build/classes">
@@ -21,18 +33,19 @@
     <target name="run">
         <java jar="build/jar/fib.jar" fork="true"/>
     </target>
-
+<target name="test" depends="compile,testCompile">
 <junit printsummary="yes" haltonfailure="yes">
   <classpath>
-    <pathelement location="${build.tests}"/>
-    <pathelement path="${java.class.path}"/>
+      <pathelement location="build/classes/"/>
+    <!--<pathelement path="${java.class.path}"/>-->
+      <fileset dir="lib/" ><include name="*.jar"></include></fileset>
   </classpath>
 
   <formatter type="plain"/>
 
-  <test name="my.test.TestCase" haltonfailure="no" outfile="result">
-    <formatter type="xml"/>
-  </test>
+  <!--<test name="my.test.TestCase" haltonfailure="no" outfile="result">-->
+    <!--<formatter type="xml"/>-->
+  <!--</test>-->
 
   <batchtest fork="yes" todir="reports/">
     <fileset dir="test/">
@@ -41,5 +54,5 @@
     </fileset>
   </batchtest>
 </junit>
-
+</target>
 </project>
